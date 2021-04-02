@@ -1,0 +1,30 @@
+{
+  "name": "vue-cookie-consent",
+  "version": "1.0.0",
+  "description": "A Vue module that provides support for multiple cookies to adhere to the EU Cookie Law.",
+  "main": "index.js",
+  "module": "dist/vue-cookie-consent.js",
+  "unpkg": "dist/vue-cookie-consent.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MENtechmedia/vue-cookie-consent.git"
+  },
+  "keywords": [
+    "Vue",
+    "npm",
+    "cookie",
+    "law"
+  ],
+  "author": "Eric Landheer (MEN Technology & Media)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MENtechmedia/vue-cookie-consent/issues"
+  },
+  "homepage": "https://github.com/MENtechmedia/vue-cookie-consent#readme",
+  "dependencies": {
+    "vue": "^2.6.12"
+  }
+}
