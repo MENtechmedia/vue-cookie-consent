@@ -14,7 +14,7 @@ function resolve (dir) {
 }
 
 var banner = [
-    'vue-cookie-consent v' + npmCfg.version,
+    'vue-cookie-consent' + npmCfg.version,
     '(c) ' + (new Date().getFullYear()) + ' ' + npmCfg.author,
     npmCfg.homepage
 ].join('\n')

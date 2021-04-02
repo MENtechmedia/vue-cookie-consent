@@ -9,6 +9,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "node build/dev-server.js",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config  ./build/webpack.release.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -85,5 +86,9 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
   }
 }
