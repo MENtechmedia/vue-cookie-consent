@@ -1,6 +1,6 @@
 {
   "name": "vue-cookie-consent-modal",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Vue module that provides support for multiple cookies to adhere to the EU Cookie Law.",
   "main": "src/index.js",
   "module": "dist/vue-cookie-consent.js",
