@@ -3,7 +3,7 @@
       <div class="cookie__consent__overlay" v-if="visible">
         <div class="cookie__consent__modal">
           <div class="cookie__consent__title_box">
-            <h1>{{ modalTitleText }}</h1>
+            <p class="cookie__consent__title_text">{{ modalTitleText }}</p>
             <p>{{ modalDescriptionText }} <a v-if="cookiePageUrl != null" :href="cookiePageUrl" target="_blank">{{ cookiePageUrlText }}</a></p>
           </div>
           <div class="cookie_consent__cookie_box">
@@ -186,18 +186,17 @@
 
   .cookie__consent__modal {
     background: white;
-    width: 50%;
+    width: 100%;
     max-width: 500px;
   }
-
-
 
   .cookie__consent__title_box {
     padding: 20px 40px;
   }
 
-  .cookie__consent__title_box > h1{
-    font-size: 2rem;
+  .cookie__consent__title_text {
+    font-size: 18px;
+    font-weight: bold;
   }
 
   .cookie__consent__title_box > p > a {
