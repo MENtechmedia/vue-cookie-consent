@@ -181,6 +181,7 @@
     height: 100%;
     width: 100%;
     background: rgba(0,0,0,0.5);
+    z-index: 999999;
   }
 
   .cookie__consent__modal {
@@ -189,8 +190,14 @@
     max-width: 500px;
   }
 
+
+
   .cookie__consent__title_box {
-    padding: 0 40px 0;
+    padding: 20px 40px;
+  }
+
+  .cookie__consent__title_box > h1{
+    font-size: 2rem;
   }
 
   .cookie__consent__title_box > p > a {
