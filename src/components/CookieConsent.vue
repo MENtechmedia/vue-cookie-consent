@@ -1,6 +1,6 @@
 <template>
     <transition appear name="fade">
-      <div class="cookie__consent__overlay" v-if="visible && displayCookies !== null">
+      <div class="cookie__consent__overlay" v-if="visible">
         <div class="cookie__consent__modal">
           <div>
             <h1>Cookie settings</h1>
@@ -19,7 +19,7 @@
 </template>
 <script>
     import collect from 'collect.js';
-    import VueCookies from 'vue-cookies';
+    import * as Cookie from 'tiny-cookie';
 
     export default {
       props: {
@@ -55,7 +55,7 @@
 
       methods: {
         cookieExists(cookie) {
-          return this.$cookies.isKey(cookie.cookieName);
+          return Cookie.get(cookie.cookieName) !== null;
         },
 
         getCookieStatus(cookie) {
@@ -73,7 +73,7 @@
 
         consentWithCookie(cookie) {
           if(!this.cookieExists(cookie)) {
-            this.setCookie(cookie.cookieName, this.cookieValue, 365);
+            this.setCookie(cookie.cookieName, this.cookieValue);
           }
           this.forceRenderer();
         },
@@ -85,15 +85,12 @@
 
         hideCookieDialog() {
           this.visible = false;
-          const date = new Date();
-          // Remember dialog box for 365 days
-          date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-          this.$cookies.set(this.dialogCookie.cookieName, 1, date.toUTCString());
+          this.setCookie(this.dialogCookie.cookieName, 1)
           location.reload();
         },
 
         removeCookie(name) {
-          this.$cookies.remove(name);
+          Cookie.removeCookie(name);
         },
 
         retractCookieConsent(cookie) {
@@ -103,10 +100,8 @@
           this.forceRenderer();
         },
 
-        setCookie(name, value, expirationInDays) {
-          const date = new Date();
-          date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
-          this.$cookies.set(name, value, date.toUTCString());
+        setCookie(name, value, expiresInDays) {
+          Cookie.setCookie(name, value, { expires: '1Y' });
         },
 
         toggleCookie(cookie) {
