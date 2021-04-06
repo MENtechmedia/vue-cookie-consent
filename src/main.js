@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App'
-import VueCookies from 'vue-cookies';
-
-Vue.config.productionTip = false;
+import VueCookies from "vue-cookies";
 
 Vue.use(VueCookies);
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

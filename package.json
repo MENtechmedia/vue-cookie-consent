@@ -1,6 +1,6 @@
 {
   "name": "vue-cookie-consent-modal",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A Vue module that provides support for multiple cookies to adhere to the EU Cookie Law.",
   "main": "src/index.js",
   "module": "dist/vue-cookie-consent.js",
@@ -76,7 +76,6 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^3.0.0",
     "vue": "^2.5.17",
-    "vue-cookies": "^1.7.4",
     "vue-jest": "^4.0.0-0",
     "vue-loader": "^15.9.0",
     "vue-style-loader": "^4.1.2",
@@ -92,5 +91,8 @@
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
+  },
+  "dependencies": {
+    "vue-cookies": "^1.7.4"
   }
 }
