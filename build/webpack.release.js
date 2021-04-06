@@ -6,6 +6,7 @@ const npmCfg = require('../package.json');
 const projectRoot = path.resolve(__dirname, '../');
 var vueLoaderConfig = require('./vue-loader.conf');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
 var utils = require('./utils');
 var config = require('../config')
 
@@ -24,7 +25,7 @@ module.exports = {
     optimization: {
         minimize: false,
     },
-    entry: './src/components/CookieConsent.vue',
+    entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'vue-cookie-consent.js',

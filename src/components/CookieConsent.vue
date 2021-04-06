@@ -1,7 +1,7 @@
 <template>
     <transition appear name="fade">
-      <div class="cookie__overlay" v-if="visible">
-        <div class="modal__cookie__consent">
+      <div class="cookie__consent__overlay" v-if="visible && displayCookies !== null">
+        <div class="cookie__consent__modal">
           <div>
             <h1>Cookie settings</h1>
             <p>We use cookies, some of them are essential, others are optional. <a :href="cookiePageUrl" target="_blank">Learn more</a></p>
@@ -19,10 +19,6 @@
 </template>
 <script>
     import collect from 'collect.js';
-    import VueCookies from 'vue-cookies';
-    import Vue from "vue";
-
-    Vue.use(VueCookies);
 
     export default {
       props: {
@@ -133,7 +129,7 @@
     margin: 0 auto;
   }
 
-  .cookie__overlay {
+  .cookie__consent__overlay {
     top: 0;
     left: 0;
     display: flex;
@@ -145,7 +141,7 @@
     background: rgba(0,0,0,0.5);
   }
 
-  .modal__cookie__consent {
+  .cookie__consent__modal {
     background: white;
     width: 50%;
   }
