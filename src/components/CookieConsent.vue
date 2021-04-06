@@ -19,6 +19,10 @@
 </template>
 <script>
     import collect from 'collect.js';
+    import VueCookies from 'vue-cookies';
+    import Vue from "vue";
+
+    Vue.use(VueCookies);
 
     export default {
       props: {
