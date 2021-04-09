@@ -62,7 +62,7 @@ Set optional to **true** if you want the user to give/retract consent for this c
 After closing the cookie dialogue box, the page will refresh. 
 
 ```blade
-@if (Cookie::get('cookieName_here') == 1)
+@if (isset($_COOKIE['cookie_name_here']))
     {{--Tooling (Facebook, Google, Hotjar, etc)--}}
 @endif
 ```
