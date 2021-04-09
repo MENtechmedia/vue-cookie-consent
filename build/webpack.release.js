@@ -25,7 +25,7 @@ module.exports = {
     optimization: {
         minimize: false,
     },
-    entry: './src/components/CookieConsent.vue',
+    entry: './src/components/RenderlessCookieConsent.vue',
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'vue-cookie-consent.js',
