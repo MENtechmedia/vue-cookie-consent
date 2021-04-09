@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <cookie-consent dialog-cookie-name="cookie-consent-cookie-dialog-box" cookie-page-url="https://youtube.com" :cookies="[
+      <cookie-consent :json-cookies="[
           {
             displayName: 'Technical',
             cookieName: 'technical',

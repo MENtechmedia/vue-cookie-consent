@@ -1,163 +1,45 @@
 <template>
-    <transition appear name="fade">
-      <div class="cookie__consent__overlay" v-if="visible">
-        <div class="cookie__consent__modal">
-          <div class="cookie__consent__title_box">
-            <p class="cookie__consent__title_text">{{ modalTitleText }}</p>
-            <p>{{ modalDescriptionText }} <a v-if="cookiePageUrl != null" :href="cookiePageUrl" target="_blank">{{ cookiePageUrlText }}</a></p>
-          </div>
-          <div class="cookie_consent__cookie_box">
-            <div v-for="cookie in displayCookies" :key="cookie.cookieName">
-              <div class="cookie__consent__switches" @click="toggleCookie(cookie)">
-                <div class="cookie__consent__switches__cookie_name">
-                  <p>{{ cookie.displayName }}</p>
-                </div>
-                <div v-if="cookie.optional">
-                  <input type="checkbox" :checked="getCookieStatus(cookie) ? 'checked' : null" class="cookie__consent__switch-input">
-                  <label class="cookie__consent__switch-label"></label>
-                </div>
-                <div v-else>
-                    -
-                </div>
+    <renderless-cookie-consent v-model="cookies" dialog-cookie-name="certscanner_cookie">
+        <div slot-scope="{ cookies, toggleCookie, getCookieStatus, visible, consentWithAllCookies, retractAllCookies, hideCookieDialog }">
+          <div v-for="cookie in cookies" :key="cookie.cookieName" v-if="visible">
+            <div class="cookie__consent__switches" @click="toggleCookie(cookie)">
+              <div class="cookie__consent__switches__cookie_name">
+                <p>{{ cookie.displayName }}</p>
+              </div>
+              <div v-if="cookie.optional">
+                <input type="checkbox" :checked="getCookieStatus(cookie) ? 'checked' : null" class="cookie__consent__switch-input">
+                <label class="cookie__consent__switch-label"></label>
+              </div>
+              <div v-else>
+                -
               </div>
             </div>
           </div>
-          <div class="cookie__consent__buttons">
-            <button class="cookie__consent__hide_dialog_button" @click="hideCookieDialog">{{ closeButtonText }}</button>
-            <button class="cookie__consent__accept_all_button" @click="consentWithAllCookies">{{ acceptCookiesText }}</button>
+          <div>
+            <button @click="hideCookieDialog">Close</button>
+            <button @click="retractAllCookies">Retract all</button>
+            <button @click="consentWithAllCookies">Accept all</button>
           </div>
         </div>
-      </div>
-    </transition>
+    </renderless-cookie-consent>
+
 </template>
 <script>
-    import collect from 'collect.js';
-    import * as Cookie from 'tiny-cookie';
+    import RenderlessCookieConsent from "./RenderlessCookieConsent";
 
     export default {
+      components: {RenderlessCookieConsent},
       props: {
-        acceptCookiesText: {
-          type: String,
-          default: "Accept all cookies"
-        },
-        closeButtonText: {
-          type: String,
-          default: "Save settings"
-        },
-        cookiePageUrl: {
-          type: String,
-          required: false
-        },
-        cookiePageUrlText: {
-          type: String,
-          default: "Learn more"
-        },
-        modalTitleText: {
-          type: String,
-          default: "Cookie settings"
-        },
-        modalDescriptionText: {
-          type: String,
-          default: "We use cookies, some of them are essential, others are optional.",
-        },
-        dialogCookieName: {
-          type: String,
-        },
-        cookies: {
+        jsonCookies: {
           type: Array,
-        }
+        },
       },
 
       data() {
         return {
-          dialogCookie: {
-            cookieName: this.dialogCookieName,
-          },
-          visible: true,
-          cookieValue: 1,
-          displayCookies: null,
-          renderKey: 0,
+          cookies: this.jsonCookies,
         }
       },
-
-      created() {
-        if(this.cookieExists(this.dialogCookie)) {
-          this.visible = false;
-        }
-      },
-
-      mounted() {
-        this.displayCookies = collect(this.cookies);
-        this.displayCookies.where('optional', false).each((cookie) => {
-          this.consentWithCookie(cookie);
-        });
-      },
-
-      methods: {
-        cookieExists(cookie) {
-          return Cookie.get(cookie.cookieName) !== null;
-        },
-
-        getCookieStatus(cookie) {
-          if(this.cookieExists(cookie)) {
-            return true;
-          }
-
-          return cookie.initialStatus;
-        },
-
-        consentWithAllCookies() {
-          collect(this.cookies).each((cookie) => this.consentWithCookie(cookie));
-          this.hideCookieDialog();
-        },
-
-        consentWithCookie(cookie) {
-          if(!this.cookieExists(cookie)) {
-            this.setCookie(cookie.cookieName, this.cookieValue);
-          }
-          this.forceRenderer();
-        },
-
-        forceRenderer() {
-          this.renderKey++;
-          this.$forceUpdate();
-        },
-
-        hideCookieDialog() {
-          this.visible = false;
-          this.setCookie(this.dialogCookie.cookieName, 1)
-          location.reload();
-        },
-
-        removeCookie(name) {
-          Cookie.removeCookie(name);
-        },
-
-        retractCookieConsent(cookie) {
-          if(this.cookieExists(cookie) && cookie.optional === true) {
-            this.removeCookie(cookie.cookieName);
-          }
-          this.forceRenderer();
-        },
-
-        setCookie(name, value, expiresInDays) {
-          Cookie.setCookie(name, value, { expires: '1Y' });
-        },
-
-        toggleCookie(cookie) {
-          if(cookie.optional === true) {
-            let cookieExists = this.cookieExists(cookie);
-
-            if(cookieExists === false) {
-              this.consentWithCookie(cookie);
-            }
-
-            if(cookieExists === true) {
-              this.retractCookieConsent(cookie);
-            }
-          }
-        }
-      }
     }
 </script>
 <style lang="scss">
